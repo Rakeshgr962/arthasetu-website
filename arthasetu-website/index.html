@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arthasetu - Learn Beyond Limits | Financial Education Platform</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #1a3a52;
+            --primary-light: #2a5a7a;
+            --accent: #d4a574;
+            --text: #333;
+            --text-light: #666;
+            --bg: #ffffff;
+            --bg-light: #f8f9fa;
+            --border: #e0e0e0;
+            --success: #10b981;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover { transform: scale(1.05); }
+
+        .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(26, 58, 82, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover { color: var(--primary); }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        .btn-services {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(26, 58, 82, 0.3);
+        }
+
+        .btn-services:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(26, 58, 82, 0.4);
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 8rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="20" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="30" fill="rgba(255,255,255,0.05)"/></svg>');
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .hero .container { max-width: 800px; margin: 0 auto; position: relative; z-index: 2; }
+
+        .hero-logo {
+            width: 140px; height: 140px;
+            margin: 0 auto 2rem;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            animation: floatLogo 3s ease-in-out infinite;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes floatLogo {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero h1 { 
+            font-size: 3.8rem; 
+            margin-bottom: 1rem; 
+            font-weight: 800; 
+            letter-spacing: -1.5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #ffd9a8;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero p { 
+            font-size: 1.15rem; 
+            margin-bottom: 3rem; 
+            opacity: 0.95; 
+            line-height: 1.8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.8rem;
+            background: var(--accent);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 35px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(212,165,116,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            background: #e5b88f;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(212,165,116,0.5);
+        }
+
+        .btn-secondary { 
+            background: transparent; 
+            color: white; 
+            border: 2.5px solid var(--accent);
+            box-shadow: 0 6px 20px rgba(212,165,116,0.2);
+        }
+        .btn-secondary:hover { 
+            background: var(--accent); 
+            color: var(--primary);
+            box-shadow: 0 10px 30px rgba(212,165,116,0.5);
+        }
+
+        /* Sections */
+        section { padding: 6rem 2rem; }
+
+        section h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            font-weight: 800;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            border-radius: 3px;
+        }
+
+        section p { color: var(--text-light); margin-bottom: 2rem; font-size: 1.08rem; }
+
+        /* Courses */
+        .courses { background: var(--bg); }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px,1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .course-card {
+            background: var(--bg-light);
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 3rem;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, var(--accent), transparent);
+            opacity: 0;
+            transition: all 0.6s ease;
+            border-radius: 50%;
+        }
+
+        .course-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border-color: var(--accent);
+        }
+
+        .course-card:hover::before { opacity: 0.12; top: -25%; right: -25%; }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            background: linear-gradient(135deg, var(--accent), #e5b88f);
+            color: var(--primary);
+            padding: 0.7rem 1.4rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            box-shadow: 0 4px 15px rgba(212,165,116,0.4);
+            z-index: 2;
+            animation: pulse 2s ease-in-out infinite;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .course-card h3 { 
+            font-size: 1.8rem; 
+            color: var(--primary); 
+            margin-bottom: 1.2rem; 
+            margin-top: 0.5rem;
+            font-weight: 800;
+        }
+        .course-card p { 
+            color: var(--text-light); 
+            font-size: 0.98rem; 
+            margin-bottom: 1.8rem;
+            line-height: 1.7;
+        }
+
+        .course-card ul { list-style: none; margin-top: 1.5rem; }
+        .course-card li {
+            padding: 0.8rem 0;
+            color: var(--text-light);
+            padding-left: 2.2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        .course-card li:hover { color: var(--primary); padding-left: 2.8rem; }
+        .course-card li:before {
+            content:"→";
+            position:absolute;
+            left:0;
+            color:var(--accent);
+            font-weight:bold;
+            font-size:1.3rem;
+        }
+
+        /* Services */
+        .services-hero { text-align: center; padding-bottom: 0; }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            border: 2.5px solid var(--border);
+            border-radius: 20px;
+            padding: 2.8rem;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+        }
+
+        .service-card::before {
+            content:'';
+            position:absolute;
+            top:0; left:-100%;
+            width:100%; height:100%;
+            background:linear-gradient(90deg, transparent, rgba(212,165,116,0.2), transparent);
+            transition:left 0.6s ease;
+            z-index: 0;
+        }
+
+        .service-card > * { position: relative; z-index: 1; }
+
+        .service-card:hover::before { left:100%; }
+
+        .service-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--accent);
+            box-shadow: 0 25px 50px rgba(26,58,82,0.15);
+        }
+
+        .service-icon { 
+            font-size: 4rem; 
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .service-card h3 { 
+            font-size: 1.6rem; 
+            color: var(--primary); 
+            margin-bottom: 1.2rem; 
+            font-weight: 800;
+        }
+        .service-card p { 
+            color: var(--text-light); 
+            margin-bottom: 1.5rem; 
+            line-height: 1.7; 
+            font-size: 0.97rem;
+        }
+        .service-card .btn { width:100%; text-align:center; }
+
+        /* Testimonials */
+        .testimonials {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+        }
+
+        .testimonials h2 { color: white; }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.12);
+            padding: 2.5rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(255,255,255,0.25);
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card:hover {
+            background: rgba(255,255,255,0.18);
+            border-color: var(--accent);
+            transform: translateY(-8px);
+        }
+
+        .rating { font-size: 1.8rem; margin-bottom: 1rem; }
+
+        .testimonial-text { font-size: 1rem; line-height: 1.8; margin-bottom: 1.5rem; font-style: italic; }
+
+        .testimonial-author { font-weight: 700; font-size: 0.95rem; }
+
+        .testimonial-role { font-size: 0.85rem; opacity: 0.85; }
+
+        /* FAQ */
+        .faq-section { background: var(--bg-light); }
+
+        .faq-grid {
+            display: grid;
+            gap: 1.2rem;
+            margin-top: 2rem;
+        }
+
+        .faq-item {
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .faq-item:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            padding: 1.8rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(26,58,82,0.05), rgba(212,165,116,0.05));
+        }
+
+        .faq-question:hover { background: linear-gradient(135deg, rgba(26,58,82,0.1), rgba(212,165,116,0.1)); }
+
+        .faq-toggle { 
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); 
+            font-size: 1.4rem;
+            color: var(--accent);
+        }
+
+        .faq-item.active .faq-toggle { transform: rotate(180deg); }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 1.8rem;
+            color: var(--text-light);
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 1.8rem 1.8rem;
+        }
+
+        /* Contact */
+        .contact { 
+            background: linear-gradient(135deg, var(--bg-light) 0%, #f0f4f8 100%);
+            text-align:center;
+        }
+        .contact .container { max-width:600px; margin:0 auto; }
+        .contact-links {
+            display:flex;
+            flex-direction:column;
+            gap:1.8rem;
+            align-items:center;
+        }
+        .contact-link {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:1.8rem;
+            padding:2rem;
+            background:white;
+            border:2.5px solid var(--border);
+            border-radius:16px;
+            text-decoration:none;
+            color:var(--primary);
+            font-weight:700;
+            transition:all 0.3s ease;
+            width:100%;
+            max-width:420px;
+            box-shadow:0 4px 15px rgba(0,0,0,0.06);
+        }
+        .contact-link:hover {
+            background:var(--primary);
+            color:white;
+            border-color:var(--primary);
+            transform:translateY(-4px);
+            box-shadow:0 12px 30px rgba(26,58,82,0.25);
+        }
+        .contact-icon { font-size:2.2rem; }
+
+        /* About */
+        .about { background: linear-gradient(135deg, var(--bg-light) 0%, #f0f4f8 100%); }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .about-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .about-card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .about-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-weight: 800;
+        }
+
+        .about-card p {
+            color: var(--text-light);
+            font-size: 0.97rem;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color:white;
+            padding:4rem 2rem 2rem;
+            border-top:3px solid var(--accent);
+        }
+        .footer-content {
+            max-width:1200px;
+            margin:0 auto;
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+            gap:2.5rem;
+            margin-bottom:2rem;
+        }
+        .footer-section h4 { 
+            color:var(--accent); 
+            margin-bottom:1.2rem; 
+            font-size:1.1rem; 
+            font-weight:800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .footer-section p { margin:0.7rem 0; font-size:0.9rem; }
+        .footer-section ul { list-style:none; }
+        .footer-section li { margin-bottom:0.7rem; }
+        .footer-section a {
+            color:rgba(255,255,255,0.85);
+            text-decoration:none;
+            transition:all 0.3s ease;
+            font-size:0.9rem;
+        }
+        .footer-section a:hover { color:var(--accent); padding-left:0.3rem; }
+        .footer-bottom {
+            max-width:1200px;
+            margin:0 auto;
+            padding-top:2rem;
+            border-top:1px solid rgba(255,255,255,0.2);
+            text-align:center;
+            font-size:0.85rem;
+        }
+
+        /* Modal */
+        .modal {
+            position:fixed;
+            top:0; left:0;
+            width:100%; height:100%;
+            background:rgba(0,0,0,0.65);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            z-index:1000;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background:white;
+            border-radius:20px;
+            box-shadow:0 25px 60px rgba(0,0,0,0.4);
+            position:relative;
+            max-height:90vh;
+            overflow-y:auto;
+            animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .login-modal { width:90%; max-width:500px; padding:3rem; }
+        .modal-close {
+            position:absolute;
+            top:1.5rem; right:1.5rem;
+            background:none; border:none;
+            font-size:1.8rem;
+            cursor:pointer;
+            color:var(--text-light);
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .modal-close:hover {
+            background: var(--bg-light);
+            color: var(--primary);
+        }
+
+        .login-logo { text-align:center; margin-bottom:2rem; }
+        .login-logo img {
+            width:90px; height:90px;
+            border-radius:50%;
+            box-shadow:0 6px 20px rgba(26,58,82,0.3);
+        }
+
+        .login-modal h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .login-modal > p {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group { margin-bottom:1.8rem; }
+        .form-group label {
+            display:block;
+            margin-bottom:0.6rem;
+            color:var(--primary);
+            font-weight:700;
+            font-size:0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .form-group input {
+            width:100%;
+            padding:1rem;
+            border:2px solid var(--border);
+            border-radius:10px;
+            font-size:0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(212, 165, 116, 0.15);
+        }
+
+        .form-checkbox {
+            display:flex;
+            align-items:center;
+            gap:0.6rem;
+            margin-bottom:1.8rem;
+        }
+
+        .form-checkbox input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .form-checkbox label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-transform: capitalize;
+            letter-spacing: 0;
+        }
+
+        .login-btn { 
+            width:100%; 
+            padding:1.1rem; 
+            font-size:1rem; 
+            font-weight:700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .msg {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .msg.success {
+            background: rgba(16, 185, 129, 0.15);
+            color: #047857;
+            border: 2px solid #10b981;
+        }
+
+        .msg.error {
+            background: rgba(239, 68, 68, 0.15);
+            color: #991b1b;
+            border: 2px solid #ef4444;
+        }
+
+        /* Responsive */
+        @media (max-width:768px) {
+            .nav-links { gap:1.2rem; font-size:0.85rem; }
+            .btn-services { padding:0.6rem 1.2rem; font-size:0.8rem; }
+            .hero { padding: 5rem 2rem; }
+            .hero h1 { font-size:2.2rem; }
+            .hero .tagline { font-size:1rem; }
+            .hero-buttons { flex-direction:column; gap: 1rem; }
+            .btn { width:100%; padding:0.9rem 1.5rem; }
+            .courses-grid, .services-grid { grid-template-columns:1fr; gap: 2rem; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .about-grid { grid-template-columns: 1fr; }
+            section h2 { font-size:2rem; }
+            section { padding: 3.5rem 2rem; }
+            .footer-content { grid-template-columns:1fr; }
+            .login-modal { width: 95%; padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#home" class="logo">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/defd8d8f-848d-4a1e-a04a-d16b60f847be" alt="Arthasetu Logo">
+                <span>Arthasetu</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#courses" class="nav-link">Courses</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+            <button class="btn-services" id="authBtn">Login</button>
+        </div>
+    </nav>
+
+    <!-- Home / Hero -->
+    <section class="hero" id="home">
+        <div class="container">
+            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/defd8d8f-848d-4a1e-a04a-d16b60f847be" alt="Arthasetu Logo" class="hero-logo">
+            <h1>Arthasetu</h1>
+            <div class="tagline">Learn Beyond Limits</div>
+            <p>Building practical, accessible education in personal finance, stock market basics, and AI fundamentals. Created by a student, for everyone who wants to learn real skills.</p>
+            <div class="hero-buttons">
+                <button class="btn" onclick="scrollToSection('courses')">Explore Courses</button>
+                <button class="btn btn-secondary" onclick="scrollToSection('services')">Premium Tools</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses -->
+    <section class="courses" id="courses">
+        <div class="container">
+            <h2>Our Courses</h2>
+            <p>We're launching with two foundational courses. Pre-register your interest, and we'll notify you when they go live.</p>
+
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="coming-soon-badge">Coming Soon</div>
+                    <h3>Stock Market Basics</h3>
+                    <p>Your complete guide to understanding stock markets, building your first portfolio, and developing a long-term investment strategy.</p>
+                    <ul>
+                        <li>What are stocks and how markets work</li>
+                        <li>Reading charts and understanding fundamentals</li>
+                        <li>Building your first portfolio</li>
+                        <li>Long-term investment strategies</li>
+                    </ul>
+                </div>
+
+                <div class="course-card">
+                    <div class="coming-soon-badge">Coming Soon</div>
+                    <h3>AI &amp; Automation Fundamentals</h3>
+                    <p>Introduction to artificial intelligence, machine learning basics, and how to use AI tools to automate your work and learning.</p>
+                    <ul>
+                        <li>AI and ML fundamentals explained simply</li>
+                        <li>Practical AI tools you can use today</li>
+                        <li>Automation for productivity</li>
+                        <li>The future of AI in careers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <div class="services-hero">
+            <div class="container">
+                <h2>Our Premium Services</h2>
+                <p>Research-backed tools and strategies to help you pick better funds, manage risk, and build long-term wealth.</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="services-grid">
+                <a class="service-card" href="fund-choosing.html">
+                    <div class="service-icon">💡</div>
+                    <h3>Fund Choosing Guide</h3>
+                    <p>Score and compare mutual funds using expense ratio, alpha, beta, volatility, and Sharpe ratio metrics.</p>
+                    <button class="btn" type="button">Open Fund Tool</button>
+                </a>
+
+                <a class="service-card" href="portfolio-management.html">
+                    <div class="service-icon">📊</div>
+                    <h3>Portfolio Management</h3>
+                    <p>Structure your portfolio, diversify intelligently, and rebalance on a rule-based schedule.</p>
+                    <button class="btn" type="button">View Strategy</button>
+                </a>
+
+                <a class="service-card" href="wealth-strategy.html">
+                    <div class="service-icon">🎯</div>
+                    <h3>Wealth Strategy</h3>
+                    <p>End-to-end wealth blueprint covering earning, saving, investing, protection, and legacy planning.</p>
+                    <button class="btn" type="button">View Plan</button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>Student Success Stories</h2>
+            <p>Real results from real learners like you.</p>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="rating">⭐⭐⭐⭐⭐</div>
+                    <div class="testimonial-text">
+                        "Arthasetu helped me understand mutual funds in a way no other platform could. I went from zero knowledge to picking my first fund with confidence."
+                    </div>
+                    <div class="testimonial-author">— Priya S.</div>
+                    <div class="testimonial-role">IT Professional, Bangalore</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="rating">⭐⭐⭐⭐⭐</div>
+                    <div class="testimonial-text">
+                        "The portfolio management framework they teach is so simple yet powerful. I've built a 40L+ portfolio using their principles."
+                    </div>
+                    <div class="testimonial-author">— Rajesh M.</div>
+                    <div class="testimonial-role">Entrepreneur, Mumbai</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="rating">⭐⭐⭐⭐⭐</div>
+                    <div class="testimonial-text">
+                        "Finally, a course that doesn't hype products. The honesty and practical examples are refreshing. Worth every penny."
+                    </div>
+                    <div class="testimonial-author">— Anjali K.</div>
+                    <div class="testimonial-role">Student, Delhi</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is Arthasetu registration SEBI-compliant?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No. Arthasetu is an educational platform providing learning content and tools. We are not a registered investment advisor under SEBI. Always consult a SEBI-registered advisor before investing.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Who is this for?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Perfect for anyone aged 18+ who wants to understand personal finance, stock markets, mutual funds, and AI. No prior knowledge needed.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do I cancel my subscription?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can delete your account from your dashboard. No cancellation fees. Your data will be cleared immediately.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you offer refunds?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes. Full refund within 7 days of purchase if you're not satisfied. No questions asked.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I access courses offline?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes. All premium course videos can be downloaded for offline access. Tools require internet for real-time data.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you have a money-back guarantee?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes. 30-day money-back guarantee on all courses. If you're not satisfied, we'll refund 100% of your investment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Contact & Support</h2>
+            <p style="color:var(--text-light); margin-bottom:2.5rem; font-size: 1.05rem;">
+                Reach out for course queries, collaboration, or portfolio discussions. We respond within 24–48 business hours.
+            </p>
+
+            <div class="contact-links">
+                <a href="mailto:arthasetu.edu@gmail.com?subject=Arthasetu%20Enquiry" class="contact-link">
+                    <span class="contact-icon">✉️</span>
+                    <span>Email: arthasetu.edu@gmail.com</span>
+                </a>
+
+                <a href="https://wa.me/919035402276?text=Hi%20Arthasetu%2C%20I%20want%20to%20know%20more%20about%20your%20services." target="_blank" rel="noopener noreferrer" class="contact-link">
+                    <span class="contact-icon">💬</span>
+                    <span>WhatsApp: +91 9035402276</span>
+                </a>
+            </div>
+
+            <p style="margin-top:2rem; font-size:0.85rem; color:var(--text-light);">
+                📋 Disclaimer: Arthasetu provides educational content only. We do not offer SEBI-registered investment advice or guarantee returns.
+            </p>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>About Arthasetu</h2>
+            <p style="text-align: center; margin-bottom: 3rem; color: var(--text-light); font-size: 1.08rem;">We believe quality education in finance and technology shouldn't be gatekept. Arthasetu is built to help students and professionals master practical financial skills.</p>
+
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="about-card-icon">📚</div>
+                    <h3>Practical Learning</h3>
+                    <p>Real-world skills over theory. Every concept is backed by examples, calculators, and action steps you can use immediately.</p>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-card-icon">💼</div>
+                    <h3>Finance & Markets</h3>
+                    <p>Stock market basics, mutual fund selection, portfolio management, and personal financial planning tailored for Indian investors.</p>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-card-icon">🤖</div>
+                    <h3>AI & Automation</h3>
+                    <p>Understand AI fundamentals and learn how to use automation tools to make smarter financial decisions and save time.</p>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-card-icon">🎯</div>
+                    <h3>Goal-Oriented</h3>
+                    <p>Every course and tool is designed around your financial goals—whether it's building wealth, retirement, or creating passive income.</p>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-card-icon">🤝</div>
+                    <h3>Student-Run</h3>
+                    <p>Built by Rakesh G R, a CS student passionate about finance. We learn in public and improve based on real feedback.</p>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-card-icon">✅</div>
+                    <h3>100% Honest</h3>
+                    <p>No product hyping. No affiliate commissions. Just transparent, practical education backed by research and real data.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; padding: 2.5rem; background: white; border-radius: 16px; border-left: 5px solid var(--accent); box-shadow: 0 6px 20px rgba(0,0,0,0.08);">
+                <h3 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.3rem; font-weight: 800;">Our Mission</h3>
+                <p style="color: var(--text-light); line-height: 1.8; font-size: 1rem;">
+                    To democratize financial education and empower the next generation of investors, entrepreneurs, and wealth-builders. We believe that with the right knowledge, discipline, and tools, anyone can build lasting wealth and financial independence—regardless of their background or starting point.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Arthasetu</h4>
+                <p>Learn Beyond Limits</p>
+                <p style="font-size:0.85rem;margin-top:0.5rem;opacity:0.8;">Building practical education in finance, stocks, and AI.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="mailto:arthasetu.edu@gmail.com">Email Us</a></li>
+                    <li><a href="https://wa.me/919035402276" target="_blank">WhatsApp</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#" onclick="alert('Privacy Policy coming soon');return false;">Privacy Policy</a></li>
+                    <li><a href="#" onclick="alert('Terms of Service coming soon');return false;">Terms of Service</a></li>
+                    <li><a href="#" onclick="alert('Disclaimer: Educational content only. Not investment advice.');return false;">Disclaimer</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Arthasetu. Learn Beyond Limits. | Built with ❤️ by Rakesh G R</p>
+            <p style="margin-top:0.5rem;font-size:0.8rem;opacity:0.8;">Not SEBI registered | Educational Platform Only</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal" style="display:none;">
+        <div class="modal-content login-modal">
+            <button class="modal-close" onclick="closeLoginModal()">✕</button>
+
+            <div class="login-container">
+                <div class="login-logo">
+                    <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/defd8d8f-848d-4a1e-a04a-d16b60f847be" alt="Arthasetu">
+                </div>
+
+                <h2>Welcome to Arthasetu</h2>
+                <p>Create an account or login to access premium features.</p>
+
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginName">Full Name</label>
+                        <input type="text" id="loginName" placeholder="Your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" required placeholder="you@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required placeholder="••••••••">
+                    </div>
+
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="isNewUser">
+                        <label for="isNewUser">Create new account</label>
+                    </div>
+
+                    <button type="submit" class="btn login-btn">Continue</button>
+                </form>
+
+                <div id="loginMsg"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+
+        function scrollToSection(id) {
+            const section = document.getElementById(id);
+            if (section) section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Navbar active state
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', e => {
+                const target = link.getAttribute('href');
+                if (target.startsWith('#')) {
+                    e.preventDefault();
+                    scrollToSection(target.substring(1));
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const sections = ['home','courses','services','contact','about'];
+            const scrollY = window.scrollY;
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const top = el.offsetTop - 140;
+                const bottom = top + el.offsetHeight;
+                if (scrollY >= top && scrollY < bottom) {
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    const current = document.querySelector(`.nav-link[href="#${id}"]`);
+                    if (current) current.classList.add('active');
+                }
+            });
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        function openLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('loginMsg').innerHTML = '';
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('loginName').value.trim();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const isNewUser = document.getElementById('isNewUser').checked;
+
+            if (!email || !password) {
+                showMsg('Please enter email and password.', 'error');
+                return;
+            }
+
+            // Get existing users
+            let users = JSON.parse(localStorage.getItem('arthasetu_users') || '[]');
+
+            if (isNewUser) {
+                if (!name) {
+                    showMsg('Please enter your name.', 'error');
+                    return;
+                }
+
+                // Check if user already exists
+                if (users.some(u => u.email === email)) {
+                    showMsg('Email already registered. Try logging in.', 'error');
+                    return;
+                }
+
+                // Add new user
+                users.push({ name, email, password, createdAt: new Date().toISOString() });
+                localStorage.setItem('arthasetu_users', JSON.stringify(users));
+
+                currentUser = { name, email, type: 'user' };
+                localStorage.setItem('arthasetu_user', JSON.stringify(currentUser));
+
+                showMsg(`✓ Account created! Welcome ${name}!`, 'success');
+                setTimeout(() => {
+                    closeLoginModal();
+                    updateUserUI();
+                }, 1000);
+            } else {
+                // Login existing user
+                const user = users.find(u => u.email === email && u.password === password);
+                
+                if (!user) {
+                    showMsg('Invalid email or password.', 'error');
+                    return;
+                }
+
+                currentUser = { name: user.name, email: user.email, type: 'user' };
+                localStorage.setItem('arthasetu_user', JSON.stringify(currentUser));
+
+                showMsg(`✓ Welcome back ${user.name}!`, 'success');
+                setTimeout(() => {
+                    closeLoginModal();
+                    updateUserUI();
+                }, 1000);
+            }
+
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
+            document.getElementById('loginName').value = '';
+            document.getElementById('isNewUser').checked = false;
+        }
+
+        function showMsg(msg, type) {
+            const msgDiv = document.getElementById('loginMsg');
+            msgDiv.className = `msg ${type}`;
+            msgDiv.textContent = msg;
+        }
+
+        function updateUserUI() {
+            const authBtn = document.getElementById('authBtn');
+            if (!authBtn) return;
+
+            if (currentUser) {
+                authBtn.textContent = currentUser.name;
+                authBtn.onclick = () => {
+                    if (confirm('Logout from Arthasetu?')) {
+                        currentUser = null;
+                        localStorage.removeItem('arthasetu_user');
+                        authBtn.textContent = 'Login';
+                        authBtn.onclick = openLoginModal;
+                    }
+                };
+                authBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            } else {
+                authBtn.textContent = 'Login';
+                authBtn.onclick = openLoginModal;
+                authBtn.style.background = '';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const saved = localStorage.getItem('arthasetu_user');
+                if (saved) currentUser = JSON.parse(saved);
+            } catch (e) {
+                currentUser = null;
+            }
+            updateUserUI();
+        });
+
+        // Close modal on outside click
+        document.getElementById('loginModal')?.addEventListener('click', (e) => {
+            if (e.target.id === 'loginModal') closeLoginModal();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Management | Arthasetu</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #1a3a52;
+            --primary-light: #2a5a7a;
+            --accent: #d4a574;
+            --text: #333;
+            --text-light: #666;
+            --bg: #ffffff;
+            --bg-light: #f8f9fa;
+            --border: #e0e0e0;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+        
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(26, 58, 82, 0.3);
+        }
+
+        .btn-back {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(26, 58, 82, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(26, 58, 82, 0.4);
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="20" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="30" fill="rgba(255,255,255,0.05)"/></svg>');
+            opacity: 0.5;
+        }
+
+        header .container { position: relative; z-index: 2; }
+
+        header h1 { font-size: 2.8rem; margin-bottom: 1rem; font-weight: 800; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
+
+        main { padding: 4rem 2rem; }
+
+        section { margin-bottom: 4rem; }
+
+        h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            font-weight: 800;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            border-radius: 2px;
+        }
+
+        .section-desc {
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .allocation-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            margin: 3rem 0;
+        }
+
+        .allocation-table thead {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+        }
+
+        .allocation-table th {
+            padding: 1.5rem;
+            text-align: left;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+
+        .allocation-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .allocation-table tbody tr:hover {
+            background: var(--bg-light);
+            transition: all 0.3s ease;
+        }
+
+        .profile-name { 
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .grid { 
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid transparent;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .card p {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .rebalance-box {
+            background: linear-gradient(135deg, var(--bg-light) 0%, #f0f4f8 100%);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 3rem 0;
+            border-left: 5px solid var(--accent);
+        }
+
+        .rebalance-box h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            font-size: 1.3rem;
+        }
+
+        .example-portfolio {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--success);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .portfolio-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .portfolio-item:last-child { border-bottom: none; }
+
+        .item-label {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .item-value {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .checklist {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            margin: 2rem 0;
+        }
+
+        .checklist h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            font-size: 1.3rem;
+        }
+
+        .checklist ul {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .checklist li:hover {
+            background: var(--bg-light);
+            padding-left: 1.5rem;
+        }
+
+        .checklist li::before {
+            content: '✓';
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--accent), #e5b88f);
+            color: var(--primary);
+            border-radius: 50%;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(26, 58, 82, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(26, 58, 82, 0.4);
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 3px solid var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            main { padding: 2rem 1rem; }
+            .grid { grid-template-columns: 1fr; }
+            .allocation-table { font-size: 0.85rem; }
+            .allocation-table th, .allocation-table td { padding: 1rem 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/defd8d8f-848d-4a1e-a04a-d16b60f847be" alt="Arthasetu">
+                <span>Arthasetu</span>
+            </a>
+            <a href="index.html" class="btn-back">← Back Home</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <h1>Portfolio Management 📊</h1>
+            <p>Build, allocate, and rebalance your investment portfolio with confidence.</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section>
+                <h2>What is Portfolio Management?</h2>
+                <p class="section-desc">Portfolio management is the art and science of assembling a collection of investments (stocks, bonds, funds, real estate) aligned with your goals, time horizon, and risk appetite. It's about creating a mix that works for you.</p>
+
+                <div class="grid">
+                    <div class="card">
+                        <h3>🎯 Goals</h3>
+                        <p>Define what you're investing for: retirement, home, education, passive income, or wealth building.</p>
+                    </div>
+                    <div class="card">
+                        <h3>📅 Time Horizon</h3>
+                        <p>How long until you need the money? Longer time = more equity. Shorter time = more debt.</p>
+                    </div>
+                    <div class="card">
+                        <h3>⚠️ Risk Appetite</h3>
+                        <p>How much volatility can you handle? Conservative, Moderate, Growth, or Aggressive?</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Asset Allocation by Risk Profile</h2>
+                <p class="section-desc">Choose the allocation that matches your risk tolerance. These are benchmark allocations; customize based on your goals.</p>
+
+                <table class="allocation-table">
+                    <thead>
+                        <tr>
+                            <th>Risk Profile</th>
+                            <th>Equity %</th>
+                            <th>Bonds/Debt %</th>
+                            <th>Cash/Liquid %</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="profile-name">🟢 Conservative</span></td>
+                            <td>20-30%</td>
+                            <td>60-70%</td>
+                            <td>10%</td>
+                            <td>Retirees, Risk-averse investors</td>
+                        </tr>
+                        <tr>
+                            <td><span class="profile-name">🟡 Moderate</span></td>
+                            <td>50-60%</td>
+                            <td>30-40%</td>
+                            <td>10%</td>
+                            <td>Mid-career professionals, 15+ years to retirement</td>
+                        </tr>
+                        <tr>
+                            <td><span class="profile-name">🟠 Growth</span></td>
+                            <td>75-80%</td>
+                            <td>15-20%</td>
+                            <td>5%</td>
+                            <td>Young professionals, 20+ years to retirement</td>
+                        </tr>
+                        <tr>
+                            <td><span class="profile-name">🔴 Aggressive</span></td>
+                            <td>90-95%</td>
+                            <td>5-10%</td>
+                            <td>0-5%</td>
+                            <td>Young investors, high risk tolerance, 25+ years</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>5-Step Portfolio Building Process</h2>
+
+                <div class="grid">
+                    <div class="card">
+                        <h3>Step 1: Define Goals</h3>
+                        <p><strong>What are you saving for?</strong> Retirement in 20 years? Home in 5 years? Kids' education in 10 years? Each goal has a different timeline and risk profile.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Step 2: Assess Risk</h3>
+                        <p><strong>How much volatility can you handle?</strong> Take a risk profiler test. Can you sleep at night if your portfolio drops 30% in a crash?</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Step 3: Allocate Assets</h3>
+                        <p><strong>Build your target allocation.</strong> Pick % for equity, bonds, and cash based on your risk profile and time horizon from the table above.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Step 4: Select Investments</h3>
+                        <p><strong>Choose funds, stocks, or bonds.</strong> Use our Fund Choosing Guide to pick good mutual funds for each category.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>Step 5: Review &amp; Rebalance</h3>
+                        <p><strong>Monitor annually.</strong> If your allocation drifts (e.g., equities grow to 85%), sell some and buy bonds to rebalance to target.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="rebalance-box">
+                    <h3>Understanding Portfolio Rebalancing</h3>
+                    <p style="margin-bottom: 1.5rem; color: var(--text-light); line-height: 1.7;">
+                        Over time, some investments will grow faster than others. This means your allocation drifts from your target. Rebalancing is the process of selling overweight assets and buying underweight assets to return to your target allocation.
+                    </p>
+
+                    <h4 style="color: var(--primary); margin: 1.5rem 0 1rem; font-weight: 700;">Example: ₹100L Portfolio</h4>
+
+                    <div class="example-portfolio">
+                        <strong style="color: var(--primary); display: block; margin-bottom: 1rem;">Initial Target: 60% Equity (₹60L) / 40% Debt (₹40L)</strong>
+                        <div class="portfolio-item">
+                            <span class="item-label">Year 1:</span>
+                            <span class="item-value">60% Equity (✓ Target met)</span>
+                        </div>
+                        <div class="portfolio-item">
+                            <span class="item-label">Year 3 (After bull run):</span>
+                            <span class="item-value">70% Equity (Drift!)</span>
+                        </div>
+                        <div class="portfolio-item">
+                            <span class="item-label">Action Required:</span>
+                            <span class="item-value">Sell ₹10L equity, buy ₹10L debt</span>
+                        </div>
+                    </div>
+
+                    <h4 style="color: var(--primary); margin: 2rem 0 1rem; font-weight: 700;">Two Rebalancing Approaches:</h4>
+
+                    <div class="example-portfolio">
+                        <strong style="color: var(--success); display: block; margin-bottom: 1rem;">1️⃣ Calendar-Based (Easier)</strong>
+                        <p style="color: var(--text-light); margin: 0;">Rebalance on a fixed schedule: quarterly, semi-annually, or annually. Simple, automatic, requires discipline.</p>
+                    </div>
+
+                    <div class="example-portfolio">
+                        <strong style="color: var(--success); display: block; margin-bottom: 1rem;">2️⃣ Drift-Based (Data-Driven)</strong>
+                        <p style="color: var(--text-light); margin: 0;">Rebalance when allocation drifts by 5% (e.g., 60% → 65% equity). More responsive but requires monitoring.</p>
+                    </div>
+
+                    <p style="margin-top: 1.5rem; color: var(--text-light); line-height: 1.7;">
+                        <strong>Pro Tip:</strong> Most investors choose annual calendar rebalancing. It's simple, tax-efficient, and effective. Do it every January.
+                    </p>
+                </div>
+            </section>
+
+            <section>
+                <div class="checklist">
+                    <h3>Annual Portfolio Review Checklist</h3>
+                    <ul>
+                        <li><strong>Review Performance:</strong> How did each investment perform vs benchmark?</li>
+                        <li><strong>Check Allocation Drift:</strong> Has your equity/debt mix drifted from target?</li>
+                        <li><strong>Rebalance if Needed:</strong> Sell overweight assets, buy underweight assets</li>
+                        <li><strong>Assess Fund Health:</strong> Has fund manager changed? Is ER still competitive?</li>
+                        <li><strong>Update Goals:</strong> Have your financial goals changed? Update your plan accordingly.</li>
+                        <li><strong>Tax Planning:</strong> Plan tax-loss harvesting or strategic selling for December</li>
+                        <li><strong>Insurance Check:</strong> Do you still have adequate life, health, and disability cover?</li>
+                        <li><strong>Emergency Fund:</strong> Is your 6-month emergency fund still intact?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>Common Portfolio Mistakes to Avoid</h2>
+
+                <div class="grid">
+                    <div class="card" style="background: rgba(239, 68, 68, 0.05); border-left: 4px solid #ef4444;">
+                        <h3 style="color: #991b1b;">❌ Panic Selling</h3>
+                        <p>During market crashes, panic and sell at the worst time. Remember: crashes are buying opportunities for long-term investors.</p>
+                    </div>
+
+                    <div class="card" style="background: rgba(239, 68, 68, 0.05); border-left: 4px solid #ef4444;">
+                        <h3 style="color: #991b1b;">❌ Chasing Performance</h3>
+                        <p>Buying funds after they've had amazing returns. By then, you're buying at peak. Stick to your plan.</p>
+                    </div>
+
+                    <div class="card" style="background: rgba(239, 68, 68, 0.05); border-left: 4px solid #ef4444;">
+                        <h3 style="color: #991b1b;">❌ Over-Diversification</h3>
+                        <p>Owning 50+ holdings dilutes returns and increases fees. 10-15 well-chosen investments are enough.</p>
+                    </div>
+
+                    <div class="card" style="background: rgba(239, 68, 68, 0.05); border-left: 4px solid #ef4444;">
+                        <h3 style="color: #991b1b;">❌ Ignoring Costs</h3>
+                        <p>High expense ratios (2%+) destroy wealth over decades. Always pick low-cost funds.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Arthasetu. Learn Beyond Limits. | Not SEBI Registered | Educational Platform Only</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem;">Questions? Email: arthasetu.edu@gmail.com | WhatsApp: +91 9035402276</p>
+    </footer>
+
+    <script src="auth.js"></script>
+</body>
+</html>

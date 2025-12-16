@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fund Choosing Guide | Arthasetu</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #1a3a52;
+            --primary-light: #2a5a7a;
+            --accent: #d4a574;
+            --text: #333;
+            --text-light: #666;
+            --bg: #ffffff;
+            --bg-light: #f8f9fa;
+            --border: #e0e0e0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(26, 58, 82, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--primary); }
+
+        .btn-back {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(26, 58, 82, 0.3);
+        }
+
+        .btn-back:hover { 
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(26, 58, 82, 0.4);
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="20" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="30" fill="rgba(255,255,255,0.05)"/></svg>');
+            opacity: 0.5;
+        }
+
+        header .container { position: relative; z-index: 2; }
+
+        header h1 { font-size: 2.8rem; margin-bottom: 1rem; font-weight: 800; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
+
+        main { padding: 4rem 2rem; }
+
+        section { margin-bottom: 4rem; }
+
+        h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            font-weight: 800;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            border-radius: 2px;
+        }
+
+        .section-desc {
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .step-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid transparent;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .step-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), #e5b88f);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.4);
+        }
+
+        .step-card h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            font-weight: 800;
+        }
+
+        .step-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .metrics-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            margin: 3rem 0;
+        }
+
+        .metrics-table thead {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+        }
+
+        .metrics-table th {
+            padding: 1.5rem;
+            text-align: left;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+
+        .metrics-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .metrics-table tbody tr:hover {
+            background: var(--bg-light);
+            transition: all 0.3s ease;
+        }
+
+        .metric-name {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+
+        .metric-desc {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-top: 0.3rem;
+        }
+
+        .form-section {
+            background: linear-gradient(135deg, var(--bg-light) 0%, #f0f4f8 100%);
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .form-section:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(212, 165, 116, 0.15);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(26, 58, 82, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(26, 58, 82, 0.4);
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            margin-top: 2rem;
+        }
+
+        .results-table thead {
+            background: var(--primary);
+            color: white;
+        }
+
+        .results-table th {
+            padding: 1.3rem;
+            text-align: left;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+        }
+
+        .results-table td {
+            padding: 1.3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .results-table tbody tr:hover {
+            background: var(--bg-light);
+        }
+
+        .score-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .score-high { background: rgba(16, 185, 129, 0.2); color: #047857; }
+        .score-mid { background: rgba(245, 158, 11, 0.2); color: #92400e; }
+        .score-low { background: rgba(239, 68, 68, 0.2); color: #991b1b; }
+
+        footer {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 3px solid var(--accent);
+        }
+
+        .disclaimer {
+            background: rgba(245, 158, 11, 0.1);
+            padding: 2rem;
+            border-left: 4px solid var(--warning);
+            border-radius: 10px;
+            margin: 3rem 0;
+        }
+
+        .disclaimer h3 {
+            color: #92400e;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .disclaimer p {
+            color: var(--text-light);
+            margin: 0.7rem 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .framework-grid { grid-template-columns: 1fr; }
+            main { padding: 2rem 1rem; }
+            .form-section { padding: 1.5rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .metrics-table, .results-table { font-size: 0.85rem; }
+            .metrics-table th, .metrics-table td { padding: 1rem 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/defd8d8f-848d-4a1e-a04a-d16b60f847be" alt="Arthasetu">
+                <span>Arthasetu</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#services">Services</a></li>
+            </ul>
+            <a href="index.html" class="btn-back">← Back Home</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <h1>Fund Choosing Guide 💡</h1>
+            <p>Master the art of selecting mutual funds using professional metrics and research-backed frameworks.</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section>
+                <h2>The 5-Step Framework to Choose the Right Fund</h2>
+                <p class="section-desc">Choosing a fund isn't about finding the best performer—it's about finding the right fit for your goals and risk appetite. Follow this framework:</p>
+
+                <div class="framework-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>Category Selection</h3>
+                        <p>Based on your time horizon and goals, pick a category: Equity, Balanced, Debt, or Liquid. Longer time = More equity.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>Long-Term Track Record</h3>
+                        <p>Check 3-year, 5-year, and 10-year returns. Consistent performance beats one-year spikes. Look for funds that survived market crashes.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>Rolling Returns &amp; Consistency</h3>
+                        <p>Calculate rolling returns (1-year periods over 5 years). Consistent performers win. Avoid funds with wild swings.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3>Risk Metrics</h3>
+                        <p>Compare volatility, Sharpe ratio, and downside behavior. Low ER, positive alpha, and good Sharpe ratio = Better fund.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">5</div>
+                        <h3>Cost &amp; Fund Hygiene</h3>
+                        <p>Lower expense ratios (ER) beat higher ER consistently. Check fund manager tenure and AUM stability.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Key Metrics Explained</h2>
+                <p class="section-desc">Understand the metrics that separate good funds from great ones:</p>
+
+                <table class="metrics-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>What It Means</th>
+                            <th>What to Look For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="metric-name">Expense Ratio (ER)</div>
+                                <div class="metric-desc">Annual cost to manage the fund</div>
+                            </td>
+                            <td>How much fund house charges yearly</td>
+                            <td><strong>Lower ER (0.5-1.5%) = Better</strong></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="metric-name">Alpha</div>
+                                <div class="metric-desc">Excess return vs benchmark</div>
+                            </td>
+                            <td>How much the fund beats its benchmark</td>
+                            <td><strong>Positive Alpha = Fund manager is skilled</strong></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="metric-name">Beta</div>
+                                <div class="metric-desc">Volatility vs market</div>
+                            </td>
+                            <td>How much fund swings compared to index</td>
+                            <td><strong>Beta = 1 (moves with market), &lt;1 (less volatile)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="metric-name">Sharpe Ratio</div>
+                                <div class="metric-desc">Risk-adjusted return</div>
+                            </td>
+                            <td>Return earned per unit of risk taken</td>
+                            <td><strong>Higher Sharpe Ratio (2+) = Better risk-adjusted returns</strong></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="metric-name">Volatility</div>
+                                <div class="metric-desc">Standard deviation of returns</div>
+                            </td>
+                            <td>How much fund price jumps around</td>
+                            <td><strong>Lower volatility = Smoother ride, less stress</strong></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="metric-name">CAGR</div>
+                                <div class="metric-desc">Compounded Annual Growth Rate</div>
+                            </td>
+                            <td>Average yearly growth over 3/5/10 years</td>
+                            <td><strong>Consistent CAGR &gt; Declining CAGR</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>Add &amp; Compare Funds</h2>
+                <p class="section-desc">Use this tool to add funds and see how they score against our criteria:</p>
+
+                <div class="form-section">
+                    <h3 style="color: var(--primary); margin-bottom: 2rem;">Add a Fund to Compare</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Fund Name</label>
+                            <input type="text" id="fundName" placeholder="e.g., ICICI Prudential Growth">
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="fundCategory">
+                                <option>Equity Growth</option>
+                                <option>Balanced Advantage</option>
+                                <option>Debt/Bond</option>
+                                <option>Liquid</option>
+                                <option>Hybrid</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Expense Ratio (%) - e.g., 0.75</label>
+                            <input type="number" id="fundER" step="0.01" min="0" placeholder="0.75">
+                        </div>
+                        <div class="form-group">
+                            <label>Alpha (%)</label>
+                            <input type="number" id="fundAlpha" step="0.1" placeholder="2.5">
+                        </div>
+                        <div class="form-group">
+                            <label>Beta - e.g., 0.95</label>
+                            <input type="number" id="fundBeta" step="0.01" min="0" placeholder="0.95">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Sharpe Ratio</label>
+                            <input type="number" id="fundSharpe" step="0.1" placeholder="1.8">
+                        </div>
+                        <div class="form-group">
+                            <label>Volatility (%)</label>
+                            <input type="number" id="fundVolatility" step="0.1" placeholder="12.5">
+                        </div>
+                        <div class="form-group">
+                            <label>CAGR (%) - 5 Year</label>
+                            <input type="number" id="fundCAGR" step="0.1" placeholder="15.2">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="addFund()">Add Fund to List</button>
+                </div>
+
+                <div id="fundsContainer" style="margin-top: 2rem;"></div>
+            </section>
+
+            <section>
+                <div class="disclaimer">
+                    <h3>⚠️ Important Disclaimer</h3>
+                    <p>• This is an educational tool, not investment advice.</p>
+                    <p>• Arthasetu is not SEBI-registered and cannot provide personalized recommendations.</p>
+                    <p>• Past performance doesn't guarantee future returns.</p>
+                    <p>• Always consult a SEBI-registered advisor before investing.</p>
+                    <p>• Past performance does not guarantee future results. Mutual funds are subject to market risks.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Arthasetu. Learn Beyond Limits. | Not SEBI Registered | Educational Platform Only</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem;">Questions? Email: arthasetu.edu@gmail.com | WhatsApp: +91 9035402276</p>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script>
+        let fundsList = [];
+
+        function scoreFund(fund) {
+            let score = 0;
+            
+            // ER scoring (lower is better) - 0-25 points
+            if (fund.er <= 0.5) score += 25;
+            else if (fund.er <= 1) score += 20;
+            else if (fund.er <= 1.5) score += 15;
+            else score += 10;
+            
+            // Alpha scoring (higher is better) - 0-25 points
+            if (fund.alpha >= 3) score += 25;
+            else if (fund.alpha >= 2) score += 20;
+            else if (fund.alpha >= 1) score += 15;
+            else if (fund.alpha >= 0) score += 10;
+            else score += 5;
+            
+            // Sharpe Ratio scoring - 0-25 points
+            if (fund.sharpe >= 2) score += 25;
+            else if (fund.sharpe >= 1.5) score += 20;
+            else if (fund.sharpe >= 1) score += 15;
+            else score += 10;
+            
+            // CAGR scoring - 0-25 points
+            if (fund.cagr >= 18) score += 25;
+            else if (fund.cagr >= 15) score += 20;
+            else if (fund.cagr >= 12) score += 15;
+            else score += 10;
+            
+            return Math.round(score);
+        }
+
+        function getScoreColor(score) {
+            if (score >= 80) return 'score-high';
+            if (score >= 60) return 'score-mid';
+            return 'score-low';
+        }
+
+        function addFund() {
+            const name = document.getElementById('fundName').value.trim();
+            const category = document.getElementById('fundCategory').value;
+            const er = parseFloat(document.getElementById('fundER').value) || 0;
+            const alpha = parseFloat(document.getElementById('fundAlpha').value) || 0;
+            const beta = parseFloat(document.getElementById('fundBeta').value) || 1;
+            const sharpe = parseFloat(document.getElementById('fundSharpe').value) || 0;
+            const volatility = parseFloat(document.getElementById('fundVolatility').value) || 0;
+            const cagr = parseFloat(document.getElementById('fundCAGR').value) || 0;
+
+            if (!name) {
+                alert('Please enter fund name');
+                return;
+            }
+
+            const fund = { name, category, er, alpha, beta, sharpe, volatility, cagr };
+            fund.score = scoreFund(fund);
+            fundsList.push(fund);
+
+            // Save to auth
+            auth.saveFundRecommendations(fundsList);
+
+            renderFunds();
+            clearForm();
+        }
+
+        function removeFund(index) {
+            fundsList.splice(index, 1);
+            auth.saveFundRecommendations(fundsList);
+            renderFunds();
+        }
+
+        function renderFunds() {
+            if (fundsList.length === 0) {
+                document.getElementById('fundsContainer').innerHTML = '';
+                return;
+            }
+
+            let html = '<table class="results-table"><thead><tr><th>Fund Name</th><th>Category</th><th>ER</th><th>Alpha</th><th>Sharpe</th><th>CAGR</th><th>Overall Score</th><th>Action</th></tr></thead><tbody>';
+
+            fundsList.forEach((fund, i) => {
+                const scoreClass = getScoreColor(fund.score);
+                html += `<tr>
+                    <td><strong>${fund.name}</strong></td>
+                    <td>${fund.category}</td>
+                    <td>${fund.er.toFixed(2)}%</td>
+                    <td>${fund.alpha.toFixed(2)}%</td>
+                    <td>${fund.sharpe.toFixed(2)}</td>
+                    <td>${fund.cagr.toFixed(2)}%</td>
+                    <td><span class="score-badge ${scoreClass}">${fund.score}/100</span></td>
+                    <td><button class="btn" style="padding: 0.5rem 1rem; width: auto; font-size: 0.85rem;" onclick="removeFund(${i})">Remove</button></td>
+                </tr>`;
+            });
+
+            html += '</tbody></table>';
+            document.getElementById('fundsContainer').innerHTML = html;
+        }
+
+        function clearForm() {
+            document.getElementById('fundName').value = '';
+            document.getElementById('fundER').value = '';
+            document.getElementById('fundAlpha').value = '';
+            document.getElementById('fundBeta').value = '';
+            document.getElementById('fundSharpe').value = '';
+            document.getElementById('fundVolatility').value = '';
+            document.getElementById('fundCAGR').value = '';
+        }
+
+        // Load funds on page load
+        window.addEventListener('load', () => {
+            const saved = auth.getSavedFunds();
+            if (saved && saved.length > 0) {
+                fundsList = saved;
+                renderFunds();
+            }
+        });
+    </script>
+</body>
+</html>

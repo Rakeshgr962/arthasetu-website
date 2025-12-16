@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wealth Strategy | Arthasetu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #1a3a52;
+            --primary-light: #2a5a7a;
+            --accent: #d4a574;
+            --text: #333;
+            --text-light: #666;
+            --bg: #ffffff;
+            --bg-light: #f8f9fa;
+            --border: #e0e0e0;
+            --success: #10b981;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .btn-back {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        header h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        header p { font-size: 1.05rem; opacity: 0.9; }
+
+        main { padding: 2rem 0 5rem; }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .section-desc {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .box {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .card h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            padding: 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: border 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(26, 58, 82, 0.2);
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #6b7280, #9ca3af);
+            margin-left: 1rem;
+        }
+
+        .btn-reset:hover {
+            box-shadow: 0 4px 15px rgba(107, 114, 128, 0.2);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .result-box {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--success);
+            margin: 1.5rem 0;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .result-item:last-child { border-bottom: none; }
+
+        .result-label {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .result-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--success);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            margin: 2rem 0;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .insights {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            margin-top: 1.5rem;
+        }
+
+        .insights h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .insights p {
+            color: var(--text-light);
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 3rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0;
+            margin: 2rem 0;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .chart-container { height: 250px; }
+            .button-group { flex-direction: column; }
+            .btn-reset { margin-left: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/defd8d8f-848d-4a1e-a04a-d16b60f847be" alt="Arthasetu">
+                <span>Arthasetu</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#services">Services</a></li>
+            </ul>
+            <a href="index.html" class="btn-back">← Back Home</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <h1>Wealth Strategy 🎯</h1>
+            <p>Build lasting wealth with a comprehensive, goal-based financial plan.</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section>
+                <h2 class="section-title">What is Wealth Strategy?</h2>
+                <p class="section-desc">Wealth strategy is a holistic financial plan that integrates earning, saving, investing, insurance, tax planning, and legacy building. It's not just about investing—it's about building a life you want with financial security.</p>
+
+                <div class="box">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">The 5 Pillars of Wealth Building</h3>
+                    <div class="grid">
+                        <div class="card">
+                            <h4>💰 Earn More</h4>
+                            <p>Grow your income through career growth, skills, side hustles, or business. Income is the foundation of all wealth.</p>
+                        </div>
+                        <div class="card">
+                            <h4>💾 Save Aggressively</h4>
+                            <p>Spend less than you earn. Aim to save 20–50% of your income. The difference becomes your investable corpus.</p>
+                        </div>
+                        <div class="card">
+                            <h4>📈 Invest Wisely</h4>
+                            <p>Put savings into assets that grow: equities, bonds, real estate. Let compounding work its magic over decades.</p>
+                        </div>
+                        <div class="card">
+                            <h4>🛡️ Protect Your Wealth</h4>
+                            <p>Insure against risks: term insurance (life), health insurance, disability, property. Protection is as important as growth.</p>
+                        </div>
+                        <div class="card">
+                            <h4>🎓 Optimize Taxes</h4>
+                            <p>Use ELSS, PPF, NPS, Section 80C to reduce taxes. Every rupee saved in tax compounds into wealth.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">SIP Calculators with Insights 📊</h2>
+                <p class="section-desc">Calculate how much your monthly SIP will grow or how much SIP you need to reach your goals. See graphs of your invested amount vs profit earned!</p>
+
+                <!-- Tabs for Calculator Selection -->
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('forward')">Forward Calculator (SIP → Goal)</button>
+                    <button class="tab-btn" onclick="switchTab('reverse')">Reverse Calculator (Goal → SIP)</button>
+                </div>
+
+                <!-- Forward Calculator -->
+                <div id="forward" class="tab-content active">
+                    <div style="background: var(--bg-light); padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+                        <h3 style="color: var(--primary); margin-bottom: 1.5rem;">Forward SIP Projection</h3>
+                        <p style="color: var(--text-light); margin-bottom: 1.5rem;">Enter your monthly SIP, investment period, and expected return to see your projected wealth.</p>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Monthly SIP Amount (₹) *</label>
+                                <input type="number" id="sipAmount" value="10000" min="100" step="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Investment Period (Years) *</label>
+                                <input type="number" id="invYears" value="20" min="1" max="50" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Expected Annual Return (%) *</label>
+                                <input type="number" id="returnRate" value="12" min="1" max="30" step="0.5" required>
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="btn" onclick="calculateSIP()">Calculate SIP Result</button>
+                            <button class="btn btn-reset" onclick="resetForwardForm()">🔄 Reset</button>
+                        </div>
+
+                        <div id="sipResult" style="display: none;">
+                            <div class="result-box">
+                                <div class="result-item">
+                                    <span class="result-label">Monthly SIP Amount:</span>
+                                    <span class="result-value">₹<span id="resultSIP">0</span></span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Total Invested (Principal):</span>
+                                    <span class="result-value">₹<span id="resultPrincipal">0</span></span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Profit Earned:</span>
+                                    <span class="result-value" style="color: var(--success);">₹<span id="resultGain">0</span></span>
+                                </div>
+                                <div class="result-item" style="border: none; padding-top: 1.5rem; border-top: 2px solid var(--border); margin-top: 1rem;">
+                                    <span class="result-label" style="font-size: 1.1rem; font-weight: 700;">Final Wealth Corpus:</span>
+                                    <span class="result-value" style="font-size: 1.5rem; color: var(--success);">₹<span id="resultFinal">0</span></span>
+                                </div>
+                            </div>
+
+                            <!-- Chart Container -->
+                            <div class="chart-container">
+                                <canvas id="sipChart"></canvas>
+                            </div>
+
+                            <div class="insights">
+                                <h4>💡 Key Insights</h4>
+                                <p><strong>Your money works harder than you:</strong> <span id="insightPercent">0</span>% of your final wealth comes from your savings. The rest is returns! This is the power of compounding.</p>
+                                <p><strong>Time > Money:</strong> If you invested for 10 more years with the same SIP, your wealth would multiply significantly.</p>
+                                <p><strong>Higher SIPs accelerate wealth:</strong> Increasing SIP by just ₹5K more per month can dramatically change your final corpus.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reverse Calculator -->
+                <div id="reverse" class="tab-content">
+                    <div style="background: var(--bg-light); padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+                        <h3 style="color: var(--primary); margin-bottom: 1.5rem;">How Much SIP Needed for Your Goal?</h3>
+                        <p style="color: var(--text-light); margin-bottom: 1.5rem;">Enter your wealth goal, time available, and expected return to find the required monthly SIP.</p>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Target Wealth Amount (₹) *</label>
+                                <input type="number" id="targetAmount" value="1000000" min="100000" step="100000" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Time Available (Years) *</label>
+                                <input type="number" id="targetYears" value="10" min="1" max="50" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Expected Annual Return (%) *</label>
+                                <input type="number" id="targetReturn" value="12" min="1" max="30" step="0.5" required>
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="btn" onclick="calculateReverseSIP()">Calculate Required SIP</button>
+                            <button class="btn btn-reset" onclick="resetReverseForm()">🔄 Reset</button>
+                        </div>
+
+                        <div id="reverseSIPResult" style="display: none;">
+                            <div class="result-box">
+                                <div class="result-item">
+                                    <span class="result-label">Your Goal:</span>
+                                    <span class="result-value">₹<span id="reverseGoal">0</span></span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Time Available:</span>
+                                    <span class="result-value"><span id="reverseYears">0</span> years</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Expected Return:</span>
+                                    <span class="result-value"><span id="reverseReturnPercent">0</span>% p.a.</span>
+                                </div>
+                                <div class="result-item" style="border: none; padding-top: 1.5rem; border-top: 2px solid var(--border); margin-top: 1rem;">
+                                    <span class="result-label" style="font-size: 1.1rem; font-weight: 700;">Required Monthly SIP:</span>
+                                    <span class="result-value" style="font-size: 1.5rem; color: var(--success);">₹<span id="reverseSIPAmount">0</span></span>
+                                </div>
+                            </div>
+
+                            <!-- Reverse Chart Container -->
+                            <div class="chart-container">
+                                <canvas id="reverseSipChart"></canvas>
+                            </div>
+
+                            <div class="insights">
+                                <h4>💡 What This Means</h4>
+                                <p><strong>Invest ₹<span id="reverseSIPAmountInsight">0</span> every month</strong> to reach your goal of ₹<span id="reverseGoalInsight">0</span> in <span id="reverseYearsInsight">0</span> years.</p>
+                                <p><strong>Total you'll invest:</strong> ₹<span id="reverseTotalInvest">0</span></p>
+                                <p><strong>Profit you'll earn:</strong> ₹<span id="reverseTotalProfit">0</span></p>
+                                <p><strong>Pro Tip:</strong> Even small increases in monthly SIP can significantly accelerate your wealth building journey!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Arthasetu. Learn Beyond Limits. | Not SEBI Registered | Educational Platform Only</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem;">Questions? Email: arthasetu.edu@gmail.com | WhatsApp: +91 9035402276</p>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="utils.js"></script>
+    <script>
+        let sipChart = null;
+        let reverseSipChart = null;
+
+        function switchTab(tab) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tab).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function calculateSIP() {
+            const sip = parseFloat(document.getElementById('sipAmount').value) || 0;
+            const years = parseFloat(document.getElementById('invYears').value) || 0;
+            const rate = (parseFloat(document.getElementById('returnRate').value) || 0) / 100 / 12;
+
+            const months = years * 12;
+            const fv = sip * (((1 + rate) ** months - 1) / rate) * (1 + rate);
+            const principal = sip * months;
+            const gain = fv - principal;
+            const gainPercent = principal > 0 ? (gain / fv * 100).toFixed(1) : 0;
+
+            document.getElementById('resultSIP').textContent = sip.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+            document.getElementById('resultPrincipal').textContent = Math.round(principal).toLocaleString('en-IN', { maximumFractionDigits: 0 });
+            document.getElementById('resultGain').textContent = Math.round(gain).toLocaleString('en-IN', { maximumFractionDigits: 0 });
+            document.getElementById('resultFinal').textContent = Math.round(fv).toLocaleString('en-IN', { maximumFractionDigits: 0 });
+            document.getElementById('insightPercent').textContent = (100 - gainPercent).toFixed(1);
+
+            document.getElementById('sipResult').style.display = 'block';
+
+            // Draw chart
+            drawSIPChart(Math.round(principal), Math.round(gain), Math.round(fv));
+        }
+
+        function drawSIPChart(principal, gain, total) {
+            const ctx = document.getElementById('sipChart').getContext('2d');
+            
+            if (sipChart) {
+                sipChart.destroy();
+            }
+
+            sipChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Amount Invested 💾', 'Profit Earned 📈'],
+                    datasets: [{
+                        data: [principal, gain],
+                        backgroundColor: ['#1a3a52', '#10b981'],
+                        borderColor: ['#2a5a7a', '#059669'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 14, weight: '600' },
+                                padding: 15,
+                                color: '#333'
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return '₹' + context.parsed.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function resetForwardForm() {
+            document.getElementById('sipAmount').value = '10000';
+            document.getElementById('invYears').value = '20';
+            document.getElementById('returnRate').value = '12';
+            document.getElementById('sipResult').style.display = 'none';
+            if (sipChart) {
+                sipChart.destroy();
+                sipChart = null;
+            }
+        }
+
+        function calculateReverseSIP() {
+            const goal = parseFloat(document.getElementById('targetAmount').value) || 0;
+            const years = parseFloat(document.getElementById('targetYears').value) || 0;
+            const rate = (parseFloat(document.getElementById('targetReturn').value) || 0) / 100 / 12;
+            const returnPercent = parseFloat(document.getElementById('targetReturn').value) || 0;
+
+            const months = years * 12;
+            const sip = goal / (((1 + rate) ** months - 1) / rate * (1 + rate));
+            const totalInvested = sip * months;
+            const totalProfit = goal - totalInvested;
+
+            document.getElementById('reverseGoal').textContent = goal.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+            document.getElementById('reverseYears').textContent = years;
+            document.getElementById('reverseReturnPercent').textContent = returnPercent;
+            document.getElementById('reverseSIPAmount').textContent = Math.round(sip).toLocaleString('en-IN', { maximumFractionDigits: 0 });
+
+            // Insights
+            document.getElementById('reverseSIPAmountInsight').textContent = Math.round(sip).toLocaleString('en-IN', { maximumFractionDigits: 0 });
+            document.getElementById('reverseGoalInsight').textContent = goal.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+            document.getElementById('reverseYearsInsight').textContent = years;
+            document.getElementById('reverseTotalInvest').textContent = Math.round(totalInvested).toLocaleString('en-IN', { maximumFractionDigits: 0 });
+            document.getElementById('reverseTotalProfit').textContent = Math.round(totalProfit).toLocaleString('en-IN', { maximumFractionDigits: 0 });
+
+            document.getElementById('reverseSIPResult').style.display = 'block';
+
+            // Draw reverse chart
+            drawReverseSIPChart(Math.round(totalInvested), Math.round(totalProfit), Math.round(goal));
+        }
+
+        function drawReverseSIPChart(invested, profit, total) {
+            const ctx = document.getElementById('reverseSipChart').getContext('2d');
+            
+            if (reverseSipChart) {
+                reverseSipChart.destroy();
+            }
+
+            reverseSipChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['You Invest 💾', 'Market Returns 📈'],
+                    datasets: [{
+                        data: [invested, profit],
+                        backgroundColor: ['#1a3a52', '#10b981'],
+                        borderColor: ['#2a5a7a', '#059669'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 14, weight: '600' },
+                                padding: 15,
+                                color: '#333'
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return '₹' + context.parsed.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function resetReverseForm() {
+            document.getElementById('targetAmount').value = '1000000';
+            document.getElementById('targetYears').value = '10';
+            document.getElementById('targetReturn').value = '12';
+            document.getElementById('reverseSIPResult').style.display = 'none';
+            if (reverseSipChart) {
+                reverseSipChart.destroy();
+                reverseSipChart = null;
+            }
+        }
+    </script>
+</body>
+</html>
